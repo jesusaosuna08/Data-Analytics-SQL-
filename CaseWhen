@@ -1,0 +1,13 @@
+SELECT  
+  load_type,
+  load_weight,
+  CASE 
+    WHEN load_weight < 1000
+    THEN 'Light'
+    WHEN load_weight BETWEEN 1000 and 4000
+    THEN 'Medium'
+  ELSE 'Heavy'
+  END AS load_weight_category
+
+
+FROM `bigquery-public-data.austin_waste.waste_and_diversion` 
