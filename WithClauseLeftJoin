@@ -1,0 +1,32 @@
+WITH intl_edu as (
+  SELECT 
+    *
+  FROM 
+    `bigquery-public-data.world_bank_intl_education.international_education`
+  WHERE 
+    indicator_code = 'UIS.FEP.3'
+
+),
+
+cs as (
+  SELECT
+    country_code, 
+    short_name, 
+    region
+  FROM 
+    `bigquery-public-data.world_bank_intl_education.country_summary`
+
+)
+ 
+SELECT
+  *
+FROM
+  intl_edu
+LEFT JOIN
+  cs
+ON (
+  intl_edu.country_code = cs.country_code
+)
+WHERE 
+  cs.region = 'East Asia & Pacific'
+ORDER BY country_name asc, year asc
